@@ -43,6 +43,10 @@ public class Edge<V> {
 		 * IFF `src` and `dest` are the same return true
 		 */
     	boolean result = true;
+    	
+    	if(o == this) {
+    		return true;
+    	}
     	if(this.src == this.dest) {
     		result = true;
     	}
