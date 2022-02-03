@@ -46,39 +46,45 @@ public class Vertex<V> {
        /**
         * TODO: add an edge to the edge list;
         */
-    	// if edgeList is empty
-    	Iterator<Edge<V>> it = edgeList.iterator();
+    	// if edgeList is empty    	
+    
+//    	
+//    	if(edgeList.contains(e)) {
+//    		System.out.println(Message.M3);
+//			return false;
+//    	}
+//		else if(e.getSource() != this.v) {
+//			System.out.println(Message.M5);
+//			return false;
+//		}
+//    	else {
+//			edgeList.add(e);
+//			return true;
+//    	}
     	
-    	if(edgeList.size() == 0 && e.getSource() == this.v){
-    		edgeList.add(e);
-    		return true;
-    	}
-    	else if(e.getSource() != this.v) {
+    	boolean result = false;
+    	
+    	// if `e`'s src is not this vertex
+		if(e.getSource() != this.v) {
 			System.out.println(Message.M5);
 			return false;
 		}
     	
-    	
-    	
+    	Iterator<Edge<V>> it = edgeList.iterator();
     	while(it.hasNext()) {
     		// if edge exists
     		if((it.next().getDest() == e.getDest())) {
     			System.out.println(Message.M3);
     			return false;
     		}
-    		// if `e`'s src is not this vertex
-    		else if(e.getSource() != this.v) {
-    			System.out.println(Message.M5);
-    			return false;
-    		}
     		// otherwise just add edge into edgeList
-    		else {
-    			edgeList.add(e);
-    			return true;
-    		}
     	}
-    
-    	return false;
+    	
+    	edgeList.add(e);
+		result = true;
+    	
+    	return result;
+
     }
     
     /**
@@ -93,6 +99,11 @@ public class Vertex<V> {
          * TODO: get the edge between this vertex and the destination V "dest";
          */
     	Edge<V> edge_to_be_returned = null;
+    
+    	if(edgeList.size() == 0) {
+    		System.out.println(Message.M6);
+			return null;
+    	}
     	
     	for(Edge<V> edge: edgeList) {
     		if(edge.getDest() == dest) {
@@ -103,10 +114,12 @@ public class Vertex<V> {
     			edge_to_be_returned = null;
     		}
     	}
-    	
     	if(edge_to_be_returned == null) {
-			System.out.println(Message.M6);
+			System.out.println(Message.M5);
+			return null;
     	}
+    	
+  
     	
      	return edge_to_be_returned;
     }
@@ -125,10 +138,11 @@ public class Vertex<V> {
          */
     	
     	Edge<V> edge_to_be_removed = null;
+    	
     	for(int i = 0; i < edgeList.size(); i++) {
     		if(edgeList.get(i).getDest() == dest) {
-    			edgeList.remove(i);
     			edge_to_be_removed = edgeList.get(i);
+    			edgeList.remove(i);
     			break;
     		}
     		else {
@@ -150,9 +164,29 @@ public class Vertex<V> {
 		 * IFF `v` and `edgeList` are the same return true
 		 */
     	boolean result = false;
+    	// checking if its null
+        if (o == null) {
+            return false;
+        }
+    	 
+    	if(this.v == o.getV()) {
+    		for(int i = 0; i < edgeList.size(); i++) {
+    			if(edgeList.get(i).getDest() == o.getEdgeList().get(i).getDest()) {
+    				result = true;
+    			}
+    			else {
+    				result = false;
+    				break;
+    			}
+    		}
+    	}
+    	else {
+    		result = false;
+    	}
   
-		return false;
+		return result;
 	}
+    
     
     @Override
     public String toString() {

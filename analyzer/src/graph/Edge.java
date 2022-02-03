@@ -42,18 +42,21 @@ public class Edge<V> {
 		 * TODO: implement the comparison between two edges
 		 * IFF `src` and `dest` are the same return true
 		 */
-    	boolean result = true;
-    	
-    	if(o == this) {
-    		return true;
-    	}
-    	if(this.src == this.dest) {
-    		result = true;
-    	}
-    	else {
-    		result = false;
-    	}
-		return result;
+        if (o == null) {
+            return false;
+        }
+
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Edge other = (Edge) o;
+        if ((this.dest == null) ? (other.dest != null) : !this.dest.equals(other.dest) && (this.src == null) ? (other.src != null) : !this.src.equals(other.src)) {
+            return false;
+        }
+
+
+        return true;
 	}
     
     @Override

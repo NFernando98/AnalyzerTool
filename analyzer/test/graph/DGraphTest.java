@@ -39,7 +39,7 @@ public class DGraphTest {
     	b2.add("1"); b2.add("2"); b2.add("3"); 
     	
     	ArrayList<String> b3 = new ArrayList<String>();
-    	b3.add("1"); b2.add("3"); 
+    	b3.add("1"); b3.add("3"); 
     	
     	expected.add(b1);
     	expected.add(b2);
@@ -105,7 +105,8 @@ public class DGraphTest {
     public void test_removeE() { 
 		Edge<String> e1 = new Edge<String>("1", "4");
 		graph.addE(e1);
-	
+		
+		// e2 has edge with "1" , "4" after next line
 		Edge<String> e2 = graph.removeE(new Edge<String>("1", "4"));
 		
         Assert.assertEquals(true, e1.equals(e2));

@@ -1,5 +1,10 @@
 package analyzer;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -122,9 +127,10 @@ public class Main {
 		/**
 		 * TODO: check whether the path exists or not;
 		 */
-		
-		
-		return true;
+		boolean result = false;
+		Path p = Paths.get("analyzer/data/at01.txt");
+		result = Files.isDirectory(p);
+		return result;
 	}
 	
 	private void printHelp(Options options) {
@@ -141,11 +147,19 @@ public class Main {
 		/**
 		 * If program argument has `help` option: print help information and return;
 		 */
+		CFGAnalyzer c = new CFGAnalyzer();
+		
 		Options options = scan.createOptions();
 		if(scan.parseOptions(options, args)){
 			if (scan.isHelp()){
 				scan.printHelp(options);
 				return;
+			}
+			if(scan.isnBranch()) {
+				c = new CFGAnalyzer();
+				c.CFG(scan.path);
+			}
+			if(scan.isCfg()) {
 			}
 		}
 		
